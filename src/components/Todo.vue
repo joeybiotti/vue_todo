@@ -1,6 +1,5 @@
 <template>
 <div class='ui centered card'>
-  // Todo shown when we are not in editing mode.
   <div class="content" v-show="!isEditing">
     <div class='header'>
       {{ todo.title }}
@@ -61,6 +60,9 @@ export default {
     },
     deleteTodo() {
       this.$emit('delete-todo', todo);
+    },
+    completeTodo() {
+      this.$emit('complete-todo', todo);
     },
   },
 };
