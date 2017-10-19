@@ -1,20 +1,22 @@
 <template>
-  <div class='ui centered card'>
-    // Todo shown when we are not in editing mode.
-    <div class="content" v-show="!isEditing">
-      <div class='header'>
-          {{ todo.title }}
-      </div>
-      <div class='meta'>
-          {{ todo.project }}
-      </div>
-      <div class='extra content'>
-          <span class='right floated edit icon' v-on:click="showForm">
+<div class='ui centered card'>
+  // Todo shown when we are not in editing mode.
+  <div class="content" v-show="!isEditing">
+    <div class='header'>
+      {{ todo.title }}
+    </div>
+    <div class='meta'>
+      {{ todo.project }}
+    </div>
+    <div class='extra content'>
+      <span class='right floated edit icon' v-on:click="showForm">
           <i class='edit icon'></i>
         </span>
-      </div>
+        <span class='right floated trash icon' v-on:click="deleteTodo(todo)">
+      <i class='trash icon'></i>
     </div>
-    // form is visible when we are in editing mode
+    </span>
+  </template>
     <div class="content" v-show="isEditing">
       <div class='ui form'>
         <div class='field'>
@@ -43,20 +45,23 @@
 </template>
 
 <script type="text/javascript">
-  export default {
-    props: ['todo'],
-    data(){
-      return {
-        isEditing: false,
-      };
+export default {
+  props: ['todo'],
+  data() {
+    return {
+      isEditing: false,
+    };
+  },
+  methods: {
+    showForm() {
+      isEditing = true;
     },
-    methods: {
-      showForm(){
-        isEditing = true;
-      },
-      hideForm(){
-        isEditing = false;
-      },
+    hideForm() {
+      isEditing = false;
     },
-  };
+    deleteTodo() {
+      this.$emit('delete-todo', todo);
+    },
+  },
+};
 </script>
